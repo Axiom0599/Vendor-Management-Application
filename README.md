@@ -9,3 +9,8 @@ if u get a access denied error-
 
 https://drawsql.app/register - for database diagrams
 
+
+
+to connect to mysql 
+mysql -uroot
+
