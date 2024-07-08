@@ -23,5 +23,7 @@ It is editable only if the table has a primary key
 
 https://stackoverflow.com/questions/10815029/mysql-workbench-edit-table-data-is-read-only
 
+all the sql code https://dev.mysql.com/doc/connector-python/en/connector-python-example-cursor-select.html
+
 
 
