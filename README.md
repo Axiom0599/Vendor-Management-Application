@@ -14,3 +14,16 @@ https://drawsql.app/register - for database diagrams
 to connect to mysql 
 mysql -uroot
 
+incase brew is not found : export PATH=/opt/homebrew/bin:$PATH
+
+
+When trying Edit Table Data in MySQL Workbench 5.2.37, its in read only mode.
+
+It is editable only if the table has a primary key
+
+https://stackoverflow.com/questions/10815029/mysql-workbench-edit-table-data-is-read-only
+
+all the sql code https://dev.mysql.com/doc/connector-python/en/connector-python-example-cursor-select.html
+
+
+
