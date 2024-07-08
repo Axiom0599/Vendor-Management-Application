@@ -14,3 +14,5 @@ https://drawsql.app/register - for database diagrams
 to connect to mysql 
 mysql -uroot
 
+incase brew is not found : export PATH=/opt/homebrew/bin:$PATH
+
