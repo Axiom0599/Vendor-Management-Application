@@ -20,7 +20,11 @@ def all_products(connection):
         )
 
     return response
-
+def delete_product(connection, product_id):
+    cursor = connection.cursor()
+    query = "DELETE FROM products WHERE products.idproducts = %s;"
+    cursor.execute(query, (product_id,))
+    connection.commit()
 def insert_product(connection, product):
     cursor = connection.cursor()
     query = "INSERT INTO products (productscol, unit_of_measure_id, price_per_unit) VALUES (%s, %s, %s);"
@@ -29,11 +33,7 @@ def insert_product(connection, product):
     connection.commit()
     return cursor.lastrowid
 
-def delete_product(connection, product_id):
-    cursor = connection.cursor()
-    query = "DELETE FROM products WHERE products.id = %s;"
-    cursor.execute(query)
-    connection.commit()
+
 
 if __name__ == '__main__':
     connection = get_connection()
