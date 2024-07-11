@@ -25,5 +25,5 @@ https://stackoverflow.com/questions/10815029/mysql-workbench-edit-table-data-is-
 
 all the sql code https://dev.mysql.com/doc/connector-python/en/connector-python-example-cursor-select.html
 
-i give up on react for frontebd idea..couldnt get both to work tog
+i give up on react for frontebd idea..couldnt get both to work tog.
 
