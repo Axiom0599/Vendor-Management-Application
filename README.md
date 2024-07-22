@@ -27,3 +27,8 @@ all the sql code https://dev.mysql.com/doc/connector-python/en/connector-python-
 
 i give up on react for frontebd idea..couldnt get both to work tog.
 
+
+Todo: 
+1) change the favicon
+2) 
+
