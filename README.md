@@ -30,5 +30,10 @@ i give up on react for frontebd idea..couldnt get both to work tog.
 
 Todo: 
 1) change the favicon
-2) 
+
+
+
+got all sorts of 404 and 403 and 405 errors
+
+https://community.postman.com/t/flask-the-method-is-not-allowed-for-the-requested-url/20086
 
