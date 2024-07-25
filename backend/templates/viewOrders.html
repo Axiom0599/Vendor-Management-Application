@@ -1,117 +1,117 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" data-bs-theme="dark">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>View Orders</title>-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">-->
-<!--    <style>-->
-<!--        body {-->
-<!--            padding-top: 56px;-->
-<!--        }-->
-<!--        .navbar {-->
-<!--            background-color: rgba(33, 37, 41, 0.8) !important;-->
-<!--            backdrop-filter: blur(10px);-->
-<!--        }-->
-<!--        #themeToggle {-->
-<!--            cursor: pointer;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <nav class="navbar navbar-expand-lg fixed-top">-->
-<!--        <div class="container-fluid">-->
-<!--            <a class="navbar-brand" href="/">VendoMA</a>-->
-<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--                <span class="navbar-toggler-icon"></span>-->
-<!--            </button>-->
-<!--            <div class="collapse navbar-collapse" id="navbarNav">-->
-<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="/manageProducts">Go back</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link active" aria-current="page" href="/viewOrders">View Orders</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <div class="d-flex">-->
-<!--                    <i id="themeToggle" class="bi bi-moon-fill fs-4"></i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </nav>-->
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+        .navbar {
+            background-color: rgba(33, 37, 41, 0.8) !important;
+            backdrop-filter: blur(10px);
+        }
+        #themeToggle {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">VendoMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manageProducts">Go back</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/viewOrders">View Orders</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <i id="themeToggle" class="bi bi-moon-fill fs-4"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<!--    <div class="container mt-5">-->
-<!--    <h1 class="mb-4">All Orders</h1>-->
-<!--    <table class="table">-->
-<!--        <thead>-->
-<!--            <tr>-->
-<!--                <th>Order ID</th>-->
-<!--                <th>Customer</th>-->
-<!--                <th>Date</th>-->
-<!--                <th>Total Amount</th>-->
-<!--                <th>Action</th>-->
-<!--            </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--            {% for order in orders %}-->
-<!--            <tr>-->
-<!--                <td>{{ order[0] }}</td>-->
-<!--                <td>{{ order[1] }}</td>-->
-<!--                <td>{{ order[2].strftime('%Y-%m-%d %H:%M:%S') }}</td>-->
-<!--                <td>${{ "%.2f"|format(order[3]) }}</td>-->
-<!--                <td><button class="btn btn-info btn-sm" onclick="viewOrderDetails({{ order[0] }})">View Details</button></td>-->
-<!--            </tr>-->
-<!--            {% endfor %}-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
+    <div class="container mt-5">
+    <h1 class="mb-4">All Orders</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order[0] }}</td>
+                <td>{{ order[1] }}</td>
+                <td>{{ order[2].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>${{ "%.2f"|format(order[3]) }}</td>
+                <td><button class="btn btn-info btn-sm" onclick="viewOrderDetails({{ order[0] }})">View Details</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-<!--    &lt;!&ndash; Modal for Order Details &ndash;&gt;-->
-<!--    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">-->
-<!--        <div class="modal-dialog modal-lg">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>-->
-<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                </div>-->
-<!--                <div class="modal-body" id="orderDetailsContent">-->
-<!--                    &lt;!&ndash; Order details will be loaded here &ndash;&gt;-->
-<!--                    <p>Order details for Order ID: <span id="modalOrderId"></span></p>-->
-<!--                    &lt;!&ndash; Add more details as needed &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!-- Modal for Order Details -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="orderDetailsContent">
+                    <!-- Order details will be loaded here -->
+                    <p>Order details for Order ID: <span id="modalOrderId"></span></p>
+                    <!-- Add more details as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--    <script>-->
-<!--        function viewOrderDetails(orderId) {-->
-<!--            document.getElementById('modalOrderId').textContent = orderId;-->
-<!--            var orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));-->
-<!--            orderDetailsModal.show();-->
-<!--        }-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function viewOrderDetails(orderId) {
+            document.getElementById('modalOrderId').textContent = orderId;
+            var orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+            orderDetailsModal.show();
+        }
 
-<!--        // Add theme toggle functionality-->
-<!--        document.getElementById('themeToggle').addEventListener('click', function () {-->
-<!--            document.documentElement.setAttribute('data-bs-theme',-->
-<!--                document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark'-->
-<!--            );-->
-<!--            this.classList.toggle('bi-moon-fill');-->
-<!--            this.classList.toggle('bi-sun-fill');-->
-<!--        });-->
+        // Add theme toggle functionality
+        document.getElementById('themeToggle').addEventListener('click', function () {
+            document.documentElement.setAttribute('data-bs-theme',
+                document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark'
+            );
+            this.classList.toggle('bi-moon-fill');
+            this.classList.toggle('bi-sun-fill');
+        });
 
 
-<!--            function viewOrderDetails(orderId) {-->
-<!--            // Fetch order details and display in modal-->
-<!--            fetch(`/order_details/${orderId}`)-->
-<!--                .then(response => response.json())-->
-<!--                .then(data => {-->
-<!--                    // Populate modal with order details-->
-<!--                    // ...-->
-<!--                });-->
-<!--        }-->
-<!--    </script>-->
-<!--</body>-->
-<!--</html>-->
+            function viewOrderDetails(orderId) {
+            // Fetch order details and display in modal
+            fetch(`/order_details/${orderId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate modal with order details
+                    // ...
+                });
+        }
+    </script>
+</body>
+</html>
