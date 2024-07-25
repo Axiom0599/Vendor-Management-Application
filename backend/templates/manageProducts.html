@@ -6,52 +6,34 @@
     <title>Manage Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <style>        body {
-            padding-top: 56px; /* Height of the navbar */
-        }
-        .navbar {
-            background-color: rgba(33, 37, 41, 0.8) !important;
-            backdrop-filter: blur(10px);
-        }
-        .table {
-            color: inherit;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
-        .btn-danger:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
-        }
-        #themeToggle {
-            cursor: pointer;
-        }</style>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">VendoMA</a>
+            <a class="navbar-brand" href="/">VendoMA</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Manage Products</a>
+                        <a class="nav-link active" aria-current="page" href="/manageProducts">Manage Products</a>
                     </li>
-                    <!-- Add more nav items here as needed -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewOrders">Orders</a>
+                    </li>
                 </ul>
-                <div class="d-flex">
-                    <i id="themeToggle" class="bi bi-moon-fill fs-4"></i>
-                </div>
             </div>
         </div>
     </nav>
 
     <div class="container mt-5">
         <h1 class="mb-4">Manage Products</h1>
+        <button type="button" class="btn btn-primary mb-3 add-product" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            Add a New Product
+        </button>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -66,9 +48,10 @@
                 <tr data-product-id="{{ product.idproducts }}">
                     <td>{{ product.productscol }}</td>
                     <td>{{ product.uomcol }}</td>
-                    <td>${{ product.price_per_unit }}</td>
+                    <td>₹{{ product.price_per_unit }}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+                        <button class="btn btn-danger btn-sm delete-product" data-product-id="{{ product.idproducts }}">Delete</button>
+                        <button class="btn btn-primary btn-sm edit-product" data-product-id="{{ product.idproducts }}">Edit</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -76,50 +59,194 @@
         </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="unitOfMeasure" class="form-label">Unit of Measure</label>
+                            <select name="uom" id="unitOfMeasure" required>
+                            <option value="each">Each</option>
+                            <option value="kg">kg</option>
+                        </select>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="pricePerUnit" class="form-label">Price per Unit</label>
+                            <input type="number" class="form-control" id="pricePerUnit" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addProductBtn">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm">
+                        <input type="hidden" id="editProductId">
+                        <div class="mb-3">
+                            <label for="editProductName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="editProductName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUnitOfMeasure" class="form-label">Unit of Measure</label>
+                            <select name="uom" id="editUnitOfMeasure" required>
+                            <option value="each">Each</option>
+                            <option value="kg">kg</option>
+                            </select>
+
+
+
+
+
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPricePerUnit" class="form-label">Price per Unit</label>
+                            <input type="number" class="form-control" id="editPricePerUnit" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            const tableBody = document.getElementById('productTableBody');
-            const themeToggle = document.getElementById('themeToggle');
 
-            // Delete product functionality
-            tableBody.addEventListener('click', function(e) {
-                if (e.target.classList.contains('delete-btn')) {
-                    const row = e.target.closest('tr');
-                    const productId = row.dataset.productId;
+        $(document).ready(function() {
+    $('.delete-product').click(function() {
+        var productId = $(this).data('product-id');
+        var $productElement = $(this).closest('tr');
 
-                    if (confirm('Are you sure you want to delete this product?')) {
-                        fetch(`/deleteProduct/${productId}`, { method: 'DELETE' })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    row.remove();
-                                } else {
-                                    alert('Failed to delete product. Please try again.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred. Please try again.');
-                            });
+        if (confirm('Are you sure you want to delete this product?')) {
+            $.ajax({
+                url: '/delete_product/' + productId,
+                type: 'POST',
+                success: function(result) {
+                    if (result.success) {
+                        // Remove the product from the UI
+                        $productElement.fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                        alert('Product deleted successfully');
+                    } else {
+                        alert('Failed to delete product: ' + result.message);
                     }
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred while deleting the product');
                 }
             });
+        }
+    });
 
-            // Theme toggle functionality
-            themeToggle.addEventListener('click', function() {
-                const html = document.documentElement;
-                if (html.getAttribute('data-bs-theme') === 'dark') {
-                    html.setAttribute('data-bs-theme', 'light');
-                    themeToggle.classList.remove('bi-moon-fill');
-                    themeToggle.classList.add('bi-sun-fill');
-                } else {
-                    html.setAttribute('data-bs-theme', 'dark');
-                    themeToggle.classList.remove('bi-sun-fill');
-                    themeToggle.classList.add('bi-moon-fill');
+        // Add product
+        $('#addProductBtn').click(function() {
+            var productName = $('#productName').val();
+            var unitOfMeasure = $('#unitOfMeasure').val();
+            var pricePerUnit = $('#pricePerUnit').val();
+
+            $.ajax({
+                url: '/add_product',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    productscol: productName,
+                    uomcol: unitOfMeasure,
+                    price_per_unit: pricePerUnit
+                }),
+                success: function(result) {
+                    if (result.success) {
+                        alert('Product added successfully');
+                        location.reload();  // Reload the page to show the new product
+                    } else {
+                        alert('Failed to add product: ' + result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error details:", xhr.responseText);
+                    alert('An error occurred while adding the product: ' + error);
                 }
             });
         });
+
+        // Open edit modal and populate fields
+        $('.edit-product').click(function() {
+            var productId = $(this).data('product-id');
+            var $row = $(this).closest('tr');
+            var productName = $row.find('td:eq(0)').text();
+            var unitOfMeasure = $row.find('td:eq(1)').text();
+            var pricePerUnit = $row.find('td:eq(2)').text().replace('₹', '');
+
+            $('#editProductId').val(productId);
+            $('#editProductName').val(productName);
+            $('#editUnitOfMeasure').val(unitOfMeasure);
+            $('#editPricePerUnit').val(pricePerUnit);
+
+            $('#editProductModal').modal('show');
+        });
+
+        // Save edited product
+        $('#saveEditBtn').click(function() {
+            var productId = $('#editProductId').val();
+            var productName = $('#editProductName').val();
+            var unitOfMeasure = $('#editUnitOfMeasure').val();
+            var pricePerUnit = $('#editPricePerUnit').val();
+
+            $.ajax({
+                url: '/edit_product/' + productId,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    productscol: productName,
+                    uomcol: unitOfMeasure,
+                    price_per_unit: pricePerUnit
+                }),
+                success: function(result) {
+                    if (result.success) {
+                        alert('Product updated successfully');
+                        location.reload();  // Reload the page to show the updated product
+                    } else {
+                        alert('Failed to update product: ' + result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error details:", xhr.responseText);
+                    alert('An error occurred while updating the product: ' + error);
+                }
+            });
+        });
+    });
+
+
+
     </script>
 </body>
 </html>
